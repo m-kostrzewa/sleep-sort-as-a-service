@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sleepsort
+  labels:
+    app: sleepsort
+spec:
+  containers:
+  - name: sleepsort-aas
+    image: kosiak/sleepsort-aas:latest
+    imagePullPolicy: Always
+    ports:
+    - containerPort: 8080
+      protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sleepsort-service
+spec:
+  selector:
+    app: sleepsort
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+  type: LoadBalancer
